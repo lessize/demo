@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thhymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$Title$</title>
+</head>
+<body>
+  <a href="b/?name=gildong&age=20">click</a>
+  <form action="" method="get">
+    <input type="text" name="name">
+    <input type="text" name="age">
+    <input type="submit" value="submit">    <!-- 요청 메세지 생성 -->
+    <input type="reset" value="reset">      <!-- 입력값 취소 -->
+    <input type="button" value="button">    <!-- 이벤트 X -->
+    <button type="submit">버튼1</button>
+    <button type="reset">버튼2</button>
+    <button type="button">버튼3</button>
+  </form>
+  <!-- button
+       1. html5에서 등장함 (시멘틱 태그)
+       2. form 태그 안에서 type의 기본값을 submit
+          form 태그 밖에서 type의 기본값은 button
+       3.
+   -->
+  <div>
+    <button type="button">버튼4</button>
+  </div>
+  <script>
+    $a = document.querySelector('a');
+    $a.addEventListener('click', evt => {
+      console.log(evt);
+      evt.preventDefault();
+      if (confirm('이동하시겠습니까?')) {
+        console.log('이동');
+        location.href = evt.target.href;
+      } else {
+        console.log('이동 취소');
+      }
+    });
+  </script>
+</body>
+</html>

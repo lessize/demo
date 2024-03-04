@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thhymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <script>
+    // 타이틀 엘리먼트
+    const $title = document.createElement('title');
+    $title.textContent = '상품 관리';
+
+    // 스크립트 엘리먼트
+    const $script = document.createElement('script');
+    $script.src = `/js/product/products.js`;
+    $script.async = true;
+
+    document.head.appendChild($title);
+    document.head.appendChild($script);
+  </script>
+</body>
+</html>
