@@ -3,6 +3,7 @@ package com.kh.demo.web;
 import com.kh.demo.domain.entity.Product;
 import com.kh.demo.domain.product.svc.ProductSVC;
 import com.kh.demo.web.api.ApiResponse;
+import com.kh.demo.web.api.ResCode;
 import com.kh.demo.web.req.product.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -107,22 +108,47 @@ public class ApiProductController {
     return res;
   }
 
-  // 목록
+//  // 목록
+//  @GetMapping
+//  public ApiResponse<?> list() {
+//
+//    try {
+//      Thread.sleep(3000); // 3초 지연
+//    } catch (InterruptedException e) {
+//      throw new RuntimeException(e);
+//    }
+//
+//    List<Product> list = productSVC.findAll();
+//
+//    ApiResponse<List<Product>> res = null;
+//    if (list.size() > 0) {
+//      res = ApiResponse.createApiResponse(ResCode.OK.getCode(), ResCode.OK.name(), list);
+//      res.setTotalCnt(productSVC.totalCnt());
+//    } else {
+//      res = ApiResponse.createApiResponseDetail(ResCode.OK.getCode(), ResCode.OK.name(), "등록된 상품이 존재하지 않습니다.", list);
+//    }
+//
+//    return res;
+//  }
+  // 목록 (페이징)
   @GetMapping
-  public ApiResponse<?> list() {
+  public ApiResponse<?> list(@RequestParam("reqPage") Long reqPage,
+                             @RequestParam("reqCnt") Long reqCnt) {
 
     try {
-      Thread.sleep(3000); // 3초 지연
+      Thread.sleep(1000*1); // 1초는 1000
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
 
-    List<Product> list = productSVC.findAll();
+    List<Product> list = productSVC.findAll(reqPage, reqCnt);
 
     ApiResponse<List<Product>> res = null;
     if (list.size() > 0) {
       res = ApiResponse.createApiResponse(ResCode.OK.getCode(), ResCode.OK.name(), list);
       res.setTotalCnt(productSVC.totalCnt());
+      res.setReqPage(reqPage.intValue());
+      res.setRecCnt(reqCnt.intValue());
     } else {
       res = ApiResponse.createApiResponseDetail(ResCode.OK.getCode(), ResCode.OK.name(), "등록된 상품이 존재하지 않습니다.", list);
     }

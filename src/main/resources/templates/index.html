@@ -8,8 +8,8 @@
 </head>
 <body>
   <h3>Hello World!(dynamic)</h3>
-  <th:block th:if="${session.loginOK}">
-    <p th:text="${session.loginOK.nickname}"></p>
+  <th:block th:if="${session.loginMember}">
+    <p th:text="${session.loginMember.nickname}"></p>
     <ul>
       <li><a href="/products">상품 관리-SSR</a></li>
       <li><a href="/api/view/products">상품 관리-CSR</a></li>
@@ -18,8 +18,9 @@
       <li><a href="#" id="logout">로그아웃</a></li>
     </ul>
   </th:block>
-  <th:block th:unless="${session.loginOK}">
+  <th:block th:unless="${session.loginMember}">
     <ul>
+      <li><a href="/pubdata/news">뉴스 검색</a></li>
       <li><a href="/members/join">회원 가입</a></li>
       <li><a href="/login">로그인</a></li>
     </ul>

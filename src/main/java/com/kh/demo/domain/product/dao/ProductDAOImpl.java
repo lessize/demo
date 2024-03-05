@@ -129,6 +129,20 @@ public class ProductDAOImpl implements ProductDAO {
     return list;
   }
 
+  @Override
+  public List<Product> findAll(Long reqPage, Long recCnt) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("select product_id, pname, quantity, price, cdate, udate ");
+    sql.append("  from product ");
+    sql.append(" order by product_id asc ");
+    sql.append("offset (:reqPage - 1) * :recCnt rows fetch first :recCnt rows only ");
+
+    Map<String, Long> param = Map.of("reqPage", reqPage, "recCnt", recCnt);
+    List<Product> list = template.query(sql.toString(), param, BeanPropertyRowMapper.newInstance(Product.class));
+
+    return list;
+  }
+
   // 총 레코드 건수
   @Override
   public int totalCnt() {

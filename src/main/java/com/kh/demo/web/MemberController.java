@@ -38,6 +38,6 @@ public class MemberController {
     BeanUtils.copyProperties(joinForm, member);
     Long memberId = memberSVC.joinMember(member);
 
-    return "redirect:/";
+    return (memberId != null) ? "redirect:/login" : "redirect:/";
   }
 }

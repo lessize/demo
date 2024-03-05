@@ -1,9 +1,6 @@
 -- 테이블 삭제
 drop table product;
 
--- 시퀀스 삭제
-drop sequence product_product_id_seq;
-
 ---------
 --상품관리
 --------
@@ -15,6 +12,9 @@ create table product(
 );
 --기본키
 alter table product add constraint product_product_id_pk primary key(product_id);
+
+-- 시퀀스 삭제
+drop sequence product_product_id_seq;
 
 --시퀀스생성
 create sequence product_product_id_seq;

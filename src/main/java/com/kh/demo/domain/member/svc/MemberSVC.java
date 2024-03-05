@@ -9,7 +9,7 @@ public interface MemberSVC {
   Long joinMember(Member member);
 
   // 회원 아이디 조회
-  boolean existMemberId(String email);
+  boolean existEmail(String email);
 
   // 회원 수정
   Optional<Member> findByEmailAndPasswd(String email, String passwd);

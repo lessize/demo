@@ -40,15 +40,15 @@ class MemberDAOImplTest {
 
   @Test
   @DisplayName("이메일(o)")
-  void existMemberId() {
-    boolean exist = memberDAO.existMemberId("user1@kh.com");
+  void existEmail() {
+    boolean exist = memberDAO.existEmail("user1@kh.com");
     assertThat(exist).isEqualTo(true);
   }
 
   @Test
   @DisplayName("이메일(x)")
   void dontExistMemberId() {
-    boolean exist = memberDAO.existMemberId("1535@kh.com");
+    boolean exist = memberDAO.existEmail("1535@kh.com");
     assertThat(exist).isEqualTo(false);
   }
 

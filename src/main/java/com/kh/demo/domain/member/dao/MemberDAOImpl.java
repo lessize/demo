@@ -47,7 +47,7 @@ public class MemberDAOImpl implements MemberDAO{
 
   // 이메일 존재 유무
   @Override
-  public boolean existMemberId(String email) {
+  public boolean existEmail(String email) {
     String sql = "select count(email) from member where email = :email ";
 
     Map param = Map.of("email", email);

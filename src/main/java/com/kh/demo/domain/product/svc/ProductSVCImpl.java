@@ -42,6 +42,11 @@ public class ProductSVCImpl implements ProductSVC{
   }
 
   @Override
+  public List<Product> findAll(Long reqPage, Long recCnt) {
+    return productDAO.findAll(reqPage, recCnt);
+  }
+
+  @Override
   public int updateById(Long productId, Product product) {
     return productDAO.updateById(productId, product);
   }

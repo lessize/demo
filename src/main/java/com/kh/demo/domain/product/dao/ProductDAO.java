@@ -14,8 +14,11 @@ public interface ProductDAO {
   Optional<Product> findById(Long productId);
 //  Product findById(Long productId); : 상품 객체가 존재함 (null 체크 필요)
 
-  // 목록
+  // 목록 전체
   List<Product> findAll();
+
+  // 목록 (페이징)
+  List<Product> findAll(Long reqPage, Long recCnt);
 
   // 단건 삭제
   int deleteById(Long productId);

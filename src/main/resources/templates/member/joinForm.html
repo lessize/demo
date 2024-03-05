@@ -8,9 +8,11 @@
 </head>
 <body>
   <h3>회원가입</h3>
-  <form action="/members/join" method="post">
+  <form id="frm" action="/members/join" method="post">
     <p>
-      <input type="text" name="email" placeholder="이메일">
+      <input type="text" name="email" placeholder="이메일" id="email">
+      <button type="button" id="dupchkBtn">중복체크</button>
+      <span class="errmsg" id="errmsg_email"></span>
     </p>
     <p>
       <input type="password" name="passwd" placeholder="비밀번호">
@@ -25,5 +27,57 @@
       <button id="joinBtn">가입</button>
     </p>
   </form>
+  <script>
+
+    frm.addEventListener('submit', evt => {
+      evt.preventDefault();   // submit 차단
+      // 이메일 중복 체크 확인
+      if (!email.dataset.dupchk || email.dataset.dupchk == 'ok') {
+        errmsg_email.textContent = '이메일 중복 체크 바랍니다!';
+        return;
+      }
+      evt.currentTarget.submit();
+    });
+
+    dupchkBtn.addEventListener('click', evt => {
+      console.log('중복체크');
+      if(email.value.trim().length == 0){
+        errmsg_email.textContent = '이메일 입력 바랍니다.';
+        email.focus();
+        return;
+      }
+      dupchk();
+    });
+
+    async function dupchk() {
+      const $email = document.getElementById('email');
+      const email = {};
+      email['email'] = $email.value;
+
+      const url = `/api/members/dupchk`;
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+          accept : 'application/json'
+        },
+        body: JSON.stringify(email)
+      }
+      const response = await fetch(url, options);
+      const msgBody = await response.json();
+      if (msgBody.header.rtcd == '21') {
+        console.log('email exist');
+        errmsg_email.textContent = '존재하는 Email입니다.';
+        $email.dataset.duochk = 'ok';
+        $email.focus();
+      } else {
+        $email.dataset.duochk = 'nok';
+        $email.disabled = true;
+        dupchkBtn.disabled = true;
+        errmsg_email.textContent = '사용 가능한 Email입니다.';
+        console.log('email none');
+      }
+    }
+  </script>
 </body>
 </html>

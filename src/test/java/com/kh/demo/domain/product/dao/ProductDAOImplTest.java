@@ -105,4 +105,31 @@ class ProductDAOImplTest {
 
     Assertions.assertThat(totalCnt).isEqualTo(list.size());
   }
+
+  @Test
+  @DisplayName("상품 다중 등록")
+  void saveMultipleProducts() {
+
+    long start = 1;
+    long end = 115;
+    for (long i = start; i <= end; i++) {
+      Product product = new Product();
+      product.setPname("노트북"+i);
+      product.setQuantity(i+10);
+      product.setPrice(i*2);
+      Long productId = productDAO.save(product);
+    }
+
+//    log.info("productId={}{}", productId, "2");
+  }
+
+  @Test
+  @DisplayName("상품목록(페이징)")
+  void FindAllByPaging() {
+    List<Product> list = productDAO.findAll(1L, 10L);
+    for (Product product : list) {
+      log.info("product={}", product);
+    }
+    log.info("size={}", list.size());
+  }
 }

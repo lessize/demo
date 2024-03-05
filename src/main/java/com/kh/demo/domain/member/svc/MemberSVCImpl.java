@@ -28,8 +28,8 @@ public class MemberSVCImpl implements MemberSVC {
   }
 
   @Override
-  public boolean existMemberId(String email) {
-    return memberDAO.existMemberId(email);
+  public boolean existEmail(String email) {
+    return memberDAO.existEmail(email);
   }
 
   @Override

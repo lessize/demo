@@ -1,3 +1,8 @@
+import { Pagination } from '/js/common.js'
+
+//페이징 객체 생성
+const pagination = new Pagination(10, 10); // 한페이지에 보여줄 레코드건수,한페이지에 보여줄 페이지수
+
 let $productList = '';    // 목록 엘리먼트를 타겟팅
 let $loadingImg = '';     // 로딩 이미지
 
@@ -62,6 +67,8 @@ function renderHTML(){
 
 // 목록 가져오기
 async function list() {
+  const reqPage = pagination.recordsPerPage;     // 요청 페이지
+  const reqCnt = pagination.currentPage;       // 페이지당 레코드 수
   $loadingImg.style.display = 'block';
   const url = `http://localhost:9080/api/products`;
   const option = {
@@ -87,6 +94,11 @@ async function list() {
                                       </div>`
                                 ).join('');
       $productList.innerHTML = str;
+
+      //총건수는 초기 1회만
+      if(!pagination.getTotalRecords()) pagination.setTotalRecords(result.totalCnt);
+      pagination.displayPagination(list);
+
     }else{
       new Error('목록 실패');
     }

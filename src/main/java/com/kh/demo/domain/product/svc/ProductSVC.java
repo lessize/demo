@@ -18,6 +18,9 @@ public interface ProductSVC {
   // 목록
   List<Product> findAll();
 
+  // 목록 (페이징)
+  List<Product> findAll(Long reqPage, Long recCnt);
+
   // 다중 삭제
   int deleteByIds(List<Long> productIds);
 
