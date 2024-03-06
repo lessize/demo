@@ -72,7 +72,8 @@
         $email.focus();
       } else {
         $email.dataset.duochk = 'nok';
-        $email.disabled = true;
+        $email.readonly = true;
+        $email.style.background = '#ccc';
         dupchkBtn.disabled = true;
         errmsg_email.textContent = '사용 가능한 Email입니다.';
         console.log('email none');

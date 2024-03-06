@@ -12,7 +12,30 @@
     .row:hover {
       background-color: lightyellow;
     }
+    #pagination button {
+      border: none;
+      outline: none;
+      font-weight: bold;
+    }
+    #pagination button:hover {
+      cursor: grab;
+      color: white;
+    }
+    #pagination button.active {
+      color: white;
+      background-color: tomato;
+      border: none;
+      outline: none;
+      font-weight: bold;
+    }
   </style>
+  <script th:inline="javascript">
+    window.totalCnt = [[${totalCnt}]];
+    window.cpgs = [[${cpgs}]];
+    window.cp = [[${cp}]];
+  </script>
+  <!--async : html dom트리 형성후 수행됨  -->
+  <script type="module" src="/js/product/all.js"></script>
 </head>
 <body>
   <h3>상품 목록</h3>
@@ -42,48 +65,6 @@
       <button type="button" id="addBtn">등록</button>
     </div>
   </form>
-  <script>
-    const $addBtn = document.getElementById('addBtn');
-    $addBtn.addEventListener('click', e => {
-      location.href = '/products/add';                // get http://loclahost:9080/products/add
-    });
-
-    const $rows = document.getElementById('rows');
-    $rows.addEventListener('click', evt => {
-      // input 요소이면서 checkbox는 제외
-      if(evt.target.tagName === 'INPUT' && evt.target.getAttribute('type') == 'checkbox') {
-        return;
-      }
-      // 2) input 요소 중에 checkbox 있는 td는 제외
-      if(evt.target.tagName == 'TD' && evt.target.classList.contains('chk')){
-        return;
-      }
-      const $row = evt.target.closest('.row');  // closest() : 이벤트가 발생한 엘리먼트로부터 가장 가까운 상위 엘리먼트를 찾기
-      const productId = $row.dataset.productId;
-      location.href = `/products/${productId}/detail`;    // GET http://localhost:9080/상품번호/detail
-    });
-
-    // 삭제
-    const frm = document.getElementById('frm');
-    frm.addEventListener('submit', evt => {
-      evt.preventDefault();    // 기본 이벤트(submit) 중지
-      if(!window.confirm('삭제하시겠습니까?')) return;
-      evt.target.submit();
-    });
-
-    // 전체 선택
-    // 일부 체크박스가 체크되어 있으면 전체 언체크, 아니라면 모든 체크박스를 체크
-    const $selectAll = document.getElementById('selectAll');
-    $selectAll.addEventListener('click', evt => {
-      // Array.from(iteral) : iteral 객체를 배열로 변환
-      const $inputs = Array.from(document.querySelectorAll('#rows input[type=checkbox]'));  // nodelist를 배열로 변경
-      const isSomeChecked = $inputs.some(inputEle => inputEle.checked == true)
-      if(isSomeChecked){
-        $inputs.forEach(input => input.checked = false);   // 일부 체크박스가 uncheck면 모든 체크박스를 unchecked로 변경
-      }else {
-        $inputs.forEach(input => input.checked = true);   // 모든 체크박스를 checked로 변경
-      }
-    });
-  </script>
+  <div id="pagination"></div>
 </body>
 </html>
