@@ -1,10 +1,11 @@
 package com.kh.demo;
 
 import com.kh.demo.web.interceptor.LoginCheckInterCeptor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//@Configuration  // 설정
+@Configuration  // 설정
 public class AppConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
@@ -20,7 +21,7 @@ public class AppConfig implements WebMvcConfigurer {
                     "/css/**",
                     "/js/**",
                     "/img/**",
-                    "/test/**",
+//                    "/test/**",
                     "/api/**"         // rest api
             );  // 인터셉터 제외 url 패턴
   }
